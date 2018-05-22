@@ -16,33 +16,21 @@ class Tree {
   // Continues recursively until the value has been found or all of the children
   // have been checked
   contains(value) {
-    if (value === this.value) return true;
+    let containsValue = false;
 
-    let queue = [this];
+    if (this.value === value) return true;
 
-    while (hasNode(queue)) {
-      const currNode = queue.shift();
+    const search = (children) => {
+      children.forEach((childNode) => {
+        if (childNode.value === value) return (containsValue = true);
 
-      if (currNode.value === value) return true;
-
-      currNode.children.forEach((childNode) => {
-        queue = [...queue, childNode];
+        if (childNode.children) search(childNode.children);
       });
-    }
+    };
 
-    return false;
+    search(this.children);
 
-    // const answer = false;
-    // console.log(value, currNode.value);
-    // if (currNode.value === value) return true;
-    //
-    // if (currNode.children.length) {
-    //   currNode.children.forEach((childNode) => {
-    //     this.contains(value, childNode);
-    //   });
-    // }
-    //
-    // return answer;
+    return containsValue;
   }
 }
 

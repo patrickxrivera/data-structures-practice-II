@@ -38,7 +38,7 @@ describe('Tree', () => {
     expect(tree.children[0].children[0].value).toBe(6);
   });
 
-  it.only('should correctly detect nested children', () => {
+  it('should correctly detect nested children', () => {
     tree.addChild(5);
     tree.addChild(6);
     tree.children[0].addChild(7);
