@@ -21,6 +21,16 @@ const removeEdgeValue = (fromVertex, toVertex) => fromVertex.edges.filter(isNotE
 
 const isEmpty = vertex => vertex.edges.length === 0;
 
+const isNotEmpty = queue => queue.length !== 0;
+
+const handleQueueing = (queue, cb) => (node) => {
+  if (!node.isVisited) {
+    cb(node.value);
+    node.setIsVisited();
+    queue.push(node);
+  }
+};
+
 // Do not modify this GraphNode class
 // Use any of its methods as you see fit to implement your graph
 
@@ -28,6 +38,7 @@ class GraphNode {
   constructor({ value, edges }) {
     this._value = value;
     this._edges = edges;
+    this._isVisited = false;
   }
 
   get value() {
@@ -42,8 +53,16 @@ class GraphNode {
     return this._edges.length;
   }
 
+  get isVisited() {
+    return this._isVisited;
+  }
+
   set edges(x) {
     this._edges = x;
+  }
+
+  setIsVisited() {
+    this._isVisited = true;
   }
 
   pushToEdges(y) {
@@ -111,6 +130,42 @@ class Graph {
 
     if (isEmpty(fromVertex)) this.removeVertex(fromVertex.value);
     if (isEmpty(toVertex)) this.removeVertex(toVertex.value);
+  }
+
+  depthFirstForEach(cb) {
+    this.vertices.forEach((vertex) => {
+      if (!vertex.isVisited) {
+        cb(vertex.value);
+        vertex.setIsVisited();
+      }
+      this.search(vertex, cb);
+    });
+  }
+
+  search(vertex, cb) {
+    vertex.edges.forEach((node) => {
+      if (!node.isVisited) {
+        cb(node.value);
+        node.setIsVisited();
+        this.search(node, cb);
+      }
+    });
+  }
+
+  breadthFirstForEach(cb) {
+    const firstNode = this.vertices[0];
+    const queue = [firstNode];
+
+    while (queue.length !== 0) {
+      const currNode = queue.shift();
+
+      if (!currNode.isVisited) {
+        cb(currNode.value);
+        currNode.setIsVisited();
+      }
+
+      currNode.edges.forEach(handleQueueing(queue, cb));
+    }
   }
 }
 

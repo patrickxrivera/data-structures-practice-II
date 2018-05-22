@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-expressions */
+/* eslint-disable class-methods-use-this */
 
 const hasTree = queue => queue.length;
 
@@ -71,6 +72,35 @@ class BinarySearchTree {
       currTree.left && queue.push(currTree.left);
       currTree.right && queue.push(currTree.right);
     }
+  }
+
+  preOrderForEach(cb, currTree = this) {
+    cb(currTree.value);
+    currTree.left && this.preOrderForEach(cb, currTree.left);
+    currTree.right && this.preOrderForEach(cb, currTree.right);
+  }
+
+  inOrderForEach(cb, currTree = this) {
+    if (currTree.left) {
+      this.inOrderForEach(cb, currTree.left);
+    }
+
+    cb(currTree.value);
+
+    if (currTree.right) {
+      this.inOrderForEach(cb, currTree.right);
+    }
+  }
+
+  postOrderForEach(cb, currTree = this) {
+    if (currTree.left) {
+      this.postOrderForEach(cb, currTree.left);
+    }
+
+    if (currTree.right) {
+      this.postOrderForEach(cb, currTree.right);
+    }
+    cb(currTree.value);
   }
 }
 

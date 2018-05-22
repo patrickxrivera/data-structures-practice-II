@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const Graph = require('../src/graph');
 
-xdescribe('Graph', () => {
+describe('Graph', () => {
   let graph;
 
   beforeEach(() => {
@@ -63,5 +63,37 @@ xdescribe('Graph', () => {
     graph.removeEdge(A, b);
     expect(graph.checkIfEdgeExists(A, b)).toBe(false);
     expect(graph.contains('A') || graph.contains('b')).toBe(false);
+  });
+
+  it('should traverse the graph depth first', () => {
+    const array = [];
+    const foo = value => array.push(value);
+    const one = graph.addVertex(1);
+    const two = graph.addVertex(2);
+    const three = graph.addVertex(3);
+    const four = graph.addVertex(4);
+    const five = graph.addVertex(5);
+    graph.addEdge(one, four);
+    graph.addEdge(one, three);
+    graph.addEdge(four, five);
+    graph.addEdge(five, two);
+    graph.depthFirstForEach(foo);
+    expect(array).toEqual([1, 2, 5, 4, 3]);
+  });
+
+  it.only('should traverse the graph breadth first', () => {
+    const array = [];
+    const foo = value => array.push(value);
+    const one = graph.addVertex(1);
+    const two = graph.addVertex(2);
+    const three = graph.addVertex(3);
+    const four = graph.addVertex(4);
+    const five = graph.addVertex(5);
+    graph.addEdge(one, four);
+    graph.addEdge(one, three);
+    graph.addEdge(four, five);
+    graph.addEdge(five, two);
+    graph.breadthFirstForEach(foo);
+    expect(array).toEqual([1, 2, 4, 3, 5]);
   });
 });

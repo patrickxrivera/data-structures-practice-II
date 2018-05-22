@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const Heap = require('../src/heap');
 
-describe('Heap', () => {
+xdescribe('Heap', () => {
   let heap;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('Heap', () => {
     expect(heap.getMax()).toEqual(14);
   });
 
-  it.only('should properly get the new max after the old max is deleted', () => {
+  it('should properly get the new max after the old max is deleted', () => {
     heap.insert(6);
     heap.insert(8);
     heap.insert(10);
