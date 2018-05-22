@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces */
+/* eslint-disable no-unused-expressions */
 
 const hasTree = queue => queue.length;
 
@@ -33,7 +34,7 @@ class BinarySearchTree {
   }
   // Checks the binary search tree for the input target
   // Can be written recursively or iteratively
-  contains(target) {
+  contains(targetParam) {
     const search = (currTree, target) => {
       if (currTree === null) return false;
 
@@ -44,7 +45,7 @@ class BinarySearchTree {
         : search(currTree.right, target);
     };
 
-    return search(this, target);
+    return search(this, targetParam);
   }
   // Traverses the tree in a depth-first manner, i.e. from top to bottom
   // Applies the given callback to each tree node in the process

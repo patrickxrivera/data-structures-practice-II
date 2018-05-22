@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-trailing-spaces */
-// Do not modify this GraphNode class
-// Use any of its methods as you see fit to implement your graph
+/* eslint-disable class-methods-use-this */
 
 const not = fn => (...args) => !fn(...args);
 
@@ -21,6 +20,9 @@ const removeVertexValue = (vertices, value) => vertices.filter(isNotVertexValue(
 const removeEdgeValue = (fromVertex, toVertex) => fromVertex.edges.filter(isNotEdgeValue(toVertex));
 
 const isEmpty = vertex => vertex.edges.length === 0;
+
+// Do not modify this GraphNode class
+// Use any of its methods as you see fit to implement your graph
 
 class GraphNode {
   constructor({ value, edges }) {
@@ -91,9 +93,7 @@ class Graph {
   // Note: You'll need to store references to each vertex's array of edges so that you can use
   // array methods on said arrays. There is no method to traverse the edge arrays built into the GraphNode class
   checkIfEdgeExists(fromVertex, toVertex) {
-    if (noEdgeExists(fromVertex, toVertex)) return false;
-
-    return edgeExists(fromVertex, toVertex);
+    return edgeExists(fromVertex, toVertex) && edgeExists(toVertex, fromVertex);
   }
   // Adds an edge between the two given vertices if no edge already exists between them
   // Again, an edge means both vertices reference the other
