@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const Graph = require('../src/graph');
 
-xdescribe('Graph', () => {
+describe('Graph', () => {
   let graph;
 
   beforeEach(() => {
@@ -24,6 +24,7 @@ xdescribe('Graph', () => {
 
   it('should properly remove nodes', () => {
     graph.addVertex('hi there');
+    graph.addVertex('HEYTY');
     graph.removeVertex('hi there');
     expect(graph.contains('hi there')).toBe(false);
   });
@@ -37,8 +38,11 @@ xdescribe('Graph', () => {
   it('should create edges between two nodes', () => {
     const pineapple = graph.addVertex('pineapple');
     const banana = graph.addVertex('banana');
-    const mango = graph.addVertex('mango', [pineapple]);
+    const yogurt = graph.addVertex('yogurt', [pineapple, banana]);
+    const mango = graph.addVertex('mango', [pineapple, yogurt]);
     expect(graph.checkIfEdgeExists(pineapple, banana)).toBe(true);
+    expect(graph.checkIfEdgeExists(mango, yogurt)).toBe(true);
+    expect(graph.checkIfEdgeExists(yogurt, banana)).toBe(true);
     expect(graph.checkIfEdgeExists(mango, banana)).toBe(false);
     expect(graph.checkIfEdgeExists(mango, pineapple)).toBe(true);
   });
